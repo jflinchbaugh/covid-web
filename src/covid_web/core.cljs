@@ -39,7 +39,7 @@
    (for [place (:places @index-data)]
      [:li
       [:a
-       {:on-click (click-handler (:file-name place))}
+       {:href "#" :on-click (click-handler (:file-name place))}
        (:place place)]])])
 
 (defn back-handler! []
@@ -54,7 +54,7 @@
 
 (defn place-page []
   [:div
-   [:a {:on-click back-handler!} "<< Back"]
+   [:a {:href "#" :on-click back-handler!} "<< Back"]
    [:h1 (:title @place-data)]
    [:table
     [:thead

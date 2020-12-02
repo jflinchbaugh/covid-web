@@ -1,8 +1,6 @@
 body {
   font-family: 'Helvetica Neue', Verdana, Helvetica, Arial, sans-serif;
-  max-width: 600px;
   margin: 0 auto;
-  padding-top: 72px;
   -webkit-font-smoothing: antialiased;
   font-size: 1.125em;
   color: #333;
@@ -27,6 +25,10 @@ h3 {
 a {
   text-decoration: none;
   color: #09f;
+}
+
+a {
+    cursor: pointer;
 }
 
 a:hover {

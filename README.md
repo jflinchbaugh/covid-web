@@ -1,6 +1,6 @@
 # COVID Web
 
-A React/Reagent frontend to the display data from JSON files produced by the covid-data project.
+A React/Reagent frontend to display data from JSON files produced by the covid-data project.
 
 ### Development mode
 

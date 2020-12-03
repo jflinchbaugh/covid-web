@@ -59,19 +59,25 @@
    [:table
     [:thead
      [:tr
-      [:th "Date"]
-      [:th "Deaths"]
-      [:th "Deaths"]
-      [:th "Cases"]
-      [:th "Cases"]]]
+      [:th.date "Date"]
+      [:th.death-change "Deaths"]
+      [:th.death-graph "Deaths"]
+      [:th.case-change "Cases"]
+      [:th.case-graph "Cases"]]]
     [:tbody
+     [:tr
+      [:td.date "Total"]
+      [:td.death-change (:total-deaths @place-data)]
+      [:td.death-graph ""]
+      [:td.case-change (:total-cases @place-data)]
+      [:td.case-graph ""]]
      (for [day (:days @place-data)]
        [:tr
-        [:td (:date day)]
-        [:td (:death-change day)]
-        [:td ""]
-        [:td (:case-change day)]
-        [:td ""]])]]])
+        [:td.date (:date day)]
+        [:td.death-change (:death-change day)]
+        [:td.death-graph ""]
+        [:td.case-change (:case-change day)]
+        [:td.case-graph ""]])]]])
 
 (defn home-page []
   (if @place-data

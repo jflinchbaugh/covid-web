@@ -37,11 +37,12 @@
 
 (defn places-list []
   [:ul
-   (for [place (:places @index-data)]
-     [:li {:key (:file-name place)}
-      [:a
-       {:href "#" :on-click (click-handler (:file-name place))}
-       (:place place)]])])
+   (doall
+    (for [place (:places @index-data)]
+      [:li {:key (:file-name place)}
+       [:a
+        {:href "#" :on-click (click-handler (:file-name place))}
+        (:place place)]]))])
 
 (defn back-handler! []
   (reset! place-data nil))
@@ -78,13 +79,14 @@
       [:td.death-graph ""]
       [:td.case-change (:total-cases @place-data)]
       [:td.case-graph ""]]
-     (doall (for [day (:days @place-data)]
-              [:tr {:key (:date day)}
-               [:td.date (:date day)]
-               [:td.death-change (:death-change day)]
-               [:td.death-graph (graph-bar "!" 50 (:max-deaths @place-data) (:death-change day))]
-               [:td.case-change (:case-change day)]
-               [:td.case-graph (graph-bar "!" 75 (:max-cases @place-data) (:case-change day))]]))]]])
+     (doall
+      (for [day (:days @place-data)]
+        [:tr {:key (:date day)}
+         [:td.date (:date day)]
+         [:td.death-change (:death-change day)]
+         [:td.death-graph (graph-bar "!" 50 (:max-deaths @place-data) (:death-change day))]
+         [:td.case-change (:case-change day)]
+         [:td.case-graph (graph-bar "!" 75 (:max-cases @place-data) (:case-change day))]]))]]])
 
 (defn home-page []
   (if @place-data

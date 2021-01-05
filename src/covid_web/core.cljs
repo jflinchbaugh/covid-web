@@ -37,36 +37,7 @@
            (load-place-data! file-name)
            (reset! place-data nil))))
 
-(defn places-list []
-  [:ul
-   (doall
-    (for [place (:places @index-data)]
-      [:li {:key (:file-name place)}
-       [:a
-        {:name (:file-name place)
-         :href (str "#" (:file-name place))
-         :class (if (= (:title @place-data) (:place place))
-                  "current"
-                  "plain")
-         :on-click (click-handler (:file-name place))}
-        (:place place)]
-       (when (= (:title @place-data) (:place place))
-         (place-page))]))])
-
-;; -------------------------
-;; Views
-
-(defn graph-length [space max-val val]
-  (if (zero? val) 0 (* space (/ val max-val))))
-
-(defn graph-bar [ch space max-val val]
-  [:div.bar (s/join (repeat (graph-length space max-val val) ch))])
-
-(defn places-page []
-  [:div [:h1 (:title @index-data)]
-   (places-list)])
-
-(defn place-page []
+(defn place-table []
   [:table
    [:thead
     [:tr
@@ -83,13 +54,42 @@
      [:td.case-change (:total-cases @place-data)]
      [:td.case-graph ""]]
     (doall
-     (for [day (:days @place-data)]
-       [:tr {:key (:date day)}
-        [:td.date (:date day)]
-        [:td.death-change (:death-change day)]
-        [:td.death-graph (graph-bar "!" 50 (:max-deaths @place-data) (:death-change day))]
-        [:td.case-change (:case-change day)]
-        [:td.case-graph (graph-bar "!" 75 (:max-cases @place-data) (:case-change day))]]))]])
+      (for [day (:days @place-data)]
+        [:tr {:key (:date day)}
+         [:td.date (:date day)]
+         [:td.death-change (:death-change day)]
+         [:td.death-graph (graph-bar "!" 50 (:max-deaths @place-data) (:death-change day))]
+         [:td.case-change (:case-change day)]
+         [:td.case-graph (graph-bar "!" 75 (:max-cases @place-data) (:case-change day))]]))]])
+
+(defn places-list []
+  [:ul
+   (doall
+    (for [place (:places @index-data)]
+      [:li {:key (:file-name place)}
+       [:a
+        {:name (:file-name place)
+         :href (str "#" (:file-name place))
+         :class (if (= (:title @place-data) (:place place))
+                  "current"
+                  "plain")
+         :on-click (click-handler (:file-name place))}
+        (:place place)]
+       (when (= (:title @place-data) (:place place))
+         [place-table])]))])
+
+;; -------------------------
+;; Views
+
+(defn graph-length [space max-val val]
+  (if (zero? val) 0 (* space (/ val max-val))))
+
+(defn graph-bar [ch space max-val val]
+  [:div.bar (s/join (repeat (graph-length space max-val val) ch))])
+
+(defn places-page []
+  [:div [:h1 (:title @index-data)]
+   [places-list]])
 
 (defn home-page []
   (places-page))

@@ -29,9 +29,6 @@
 ;; -------------------------
 ;; Components
 
-(defn title []
-  (:title @index-data))
-
 (defn click-handler [file-name]
   (fn [] (load-place-data! file-name)))
 
@@ -57,7 +54,7 @@
   [:div.bar (s/join (repeat (graph-length space max-val val) ch))])
 
 (defn places-page []
-  [:div [:h1 (title)]
+  [:div [:h1 (:title @index-data)]
    (places-list)])
 
 (defn place-page []

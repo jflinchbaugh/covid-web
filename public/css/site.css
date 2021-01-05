@@ -7,6 +7,7 @@ body {
 
 a {
   cursor: pointer;
+  text-decoration: none;
 }
 
 a:hover {
@@ -25,4 +26,9 @@ td, th {
 
 .date, .death-graph, .case-graph {
     text-align: left;
+}
+
+.current {
+    font-size: 120%;
+    font-weight: bold;
 }

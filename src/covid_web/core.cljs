@@ -45,6 +45,9 @@
        [:a
         {:name (:file-name place)
          :href (str "#" (:file-name place))
+         :class (if (= (:title @place-data) (:place place))
+                  "current"
+                  "plain")
          :on-click (click-handler (:file-name place))}
         (:place place)]
        (when (= (:title @place-data) (:place place))

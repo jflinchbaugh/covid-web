@@ -24,13 +24,18 @@
 (defn load-place-data! [file-name]
   (async/go (let [response (async/<! (http/get (resource-url file-name)
                                                {:with-credentials? false}))]
-              (reset! place-data (:body response)))))
+              (reset!
+                place-data
+                (assoc (:body response) :file-name file-name)))))
 
 ;; -------------------------
 ;; Components
 
 (defn click-handler [file-name]
-  (fn [] (load-place-data! file-name)))
+  (fn [] (if
+          (or (nil? @place-data) (not= file-name (:file-name @place-data)))
+           (load-place-data! file-name)
+           (reset! place-data nil))))
 
 (defn places-list []
   [:ul
@@ -38,11 +43,12 @@
     (for [place (:places @index-data)]
       [:li {:key (:file-name place)}
        [:a
-        {:href "#" :on-click (click-handler (:file-name place))}
-        (:place place)]]))])
-
-(defn back-handler! []
-  (reset! place-data nil))
+        {:name (:file-name place)
+         :href (str "#" (:file-name place))
+         :on-click (click-handler (:file-name place))}
+        (:place place)]
+       (when (= (:title @place-data) (:place place))
+         (place-page))]))])
 
 ;; -------------------------
 ;; Views
@@ -58,37 +64,32 @@
    (places-list)])
 
 (defn place-page []
-  [:div
-   [:a {:href "#" :on-click back-handler!} "<< Back"]
-   [:h1 (:title @place-data)]
-   [:table
-    [:thead
-     [:tr
-      [:th.date "Date"]
-      [:th.death-change "Deaths"]
-      [:th.death-graph "Deaths"]
-      [:th.case-change "Cases"]
-      [:th.case-graph "Cases"]]]
-    [:tbody
-     [:tr
-      [:td.date "Total"]
-      [:td.death-change (:total-deaths @place-data)]
-      [:td.death-graph ""]
-      [:td.case-change (:total-cases @place-data)]
-      [:td.case-graph ""]]
-     (doall
-      (for [day (:days @place-data)]
-        [:tr {:key (:date day)}
-         [:td.date (:date day)]
-         [:td.death-change (:death-change day)]
-         [:td.death-graph (graph-bar "!" 50 (:max-deaths @place-data) (:death-change day))]
-         [:td.case-change (:case-change day)]
-         [:td.case-graph (graph-bar "!" 75 (:max-cases @place-data) (:case-change day))]]))]]])
+  [:table
+   [:thead
+    [:tr
+     [:th.date "Date"]
+     [:th.death-change "Deaths"]
+     [:th.death-graph "Deaths"]
+     [:th.case-change "Cases"]
+     [:th.case-graph "Cases"]]]
+   [:tbody
+    [:tr
+     [:td.date "Total"]
+     [:td.death-change (:total-deaths @place-data)]
+     [:td.death-graph ""]
+     [:td.case-change (:total-cases @place-data)]
+     [:td.case-graph ""]]
+    (doall
+     (for [day (:days @place-data)]
+       [:tr {:key (:date day)}
+        [:td.date (:date day)]
+        [:td.death-change (:death-change day)]
+        [:td.death-graph (graph-bar "!" 50 (:max-deaths @place-data) (:death-change day))]
+        [:td.case-change (:case-change day)]
+        [:td.case-graph (graph-bar "!" 75 (:max-cases @place-data) (:case-change day))]]))]])
 
 (defn home-page []
-  (if @place-data
-    (place-page)
-    (places-page)))
+  (places-page))
 ;; -------------------------
 ;; Initialize app
 

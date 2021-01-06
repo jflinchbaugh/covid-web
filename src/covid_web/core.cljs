@@ -28,6 +28,12 @@
                 place-data
                 (assoc (:body response) :file-name file-name)))))
 
+(defn max-deaths [place]
+    (get-in place [:visualization :deaths :upper-outlier-threshold]))
+
+(defn max-cases [place]
+    (get-in place [:visualization :cases :upper-outlier-threshold]))
+
 ;; -------------------------
 ;; Components
 
@@ -58,9 +64,19 @@
         [:tr {:key (:date day)}
          [:td.date (:date day)]
          [:td.death-change (:death-change day)]
-         [:td.death-graph (graph-bar "!" 50 (:max-deaths @place-data) (:death-change day))]
+         [:td.death-graph
+          (graph-bar
+            "!"
+            50
+            (max-deaths @place-data)
+            (:death-change day))]
          [:td.case-change (:case-change day)]
-         [:td.case-graph (graph-bar "!" 75 (:max-cases @place-data) (:case-change day))]]))]])
+         [:td.case-graph
+          (graph-bar
+            "!"
+            75
+            (max-cases @place-data)
+            (:case-change day))]]))]])
 
 (defn places-list []
   [:ul
@@ -82,10 +98,12 @@
 ;; Views
 
 (defn graph-length [space max-val val]
-  (if (zero? val) 0 (* space (/ val max-val))))
+  (int (if (zero? val) 0 (* space (/ val max-val)))))
 
 (defn graph-bar [ch space max-val val]
-  [:div.bar (s/join (repeat (graph-length space max-val val) ch))])
+  (let [v (min val max-val)
+        tail (if (<= val max-val) "" ">")]
+    [:div.bar (s/join (concat (repeat (graph-length space max-val v) ch) [tail]))]))
 
 (defn places-page []
   [:div [:h1 (:title @index-data)]

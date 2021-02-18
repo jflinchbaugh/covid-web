@@ -69,14 +69,14 @@
             "!"
             50
             (max-deaths @place-data)
-            (:death-change day))]
+            (:death-change-history day))]
          [:td.case-change (:case-change day)]
          [:td.case-graph
           (graph-bar
             "!"
             75
             (max-cases @place-data)
-            (:case-change day))]]))]])
+            (:case-change-history day))]]))]])
 
 (defn places-list []
   [:ul

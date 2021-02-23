@@ -43,6 +43,11 @@
            (load-place-data! file-name)
            (reset! place-data nil))))
 
+(defn graph-bar [ch space max-val val]
+  (let [v (min val max-val)
+        tail (if (<= val max-val) "" ">")]
+    [:div.bar (s/join (concat (repeat (graph-length space max-val v) ch) [tail]))]))
+
 (defn place-table []
   [:table
    [:thead
@@ -99,11 +104,6 @@
 
 (defn graph-length [space max-val val]
   (int (if (zero? val) 0 (* space (/ val max-val)))))
-
-(defn graph-bar [ch space max-val val]
-  (let [v (min val max-val)
-        tail (if (<= val max-val) "" ">")]
-    [:div.bar (s/join (concat (repeat (graph-length space max-val v) ch) [tail]))]))
 
 (defn places-page []
   [:div [:h1 (:title @index-data)]

@@ -28,6 +28,16 @@ td, th {
     text-align: left;
 }
 
+li {
+    font-size: 200%;
+    width: 50ex;
+    background-color: white;
+}
+
+table {
+    font-size: 50%;
+}
+
 .current {
     font-size: 120%;
     font-weight: bold;

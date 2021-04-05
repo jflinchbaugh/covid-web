@@ -43,6 +43,9 @@
            (load-place-data! file-name)
            (reset! place-data nil))))
 
+(defn graph-length [space max-val val]
+  (int (if (zero? val) 0 (* space (/ val max-val)))))
+
 (defn graph-bar [ch space max-val val]
   (let [v (min val max-val)
         tail (if (<= val max-val) "" ">")]
@@ -101,9 +104,6 @@
 
 ;; -------------------------
 ;; Views
-
-(defn graph-length [space max-val val]
-  (int (if (zero? val) 0 (* space (/ val max-val)))))
 
 (defn places-page []
   [:div [:h1 (:title @index-data)]

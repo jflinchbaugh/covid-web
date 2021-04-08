@@ -1,6 +1,6 @@
 body {
   font-family: 'Helvetica Neue', Verdana, Helvetica, Arial, sans-serif;
-  font-size: 20pt;
+  font-size: 16pt;
   margin: 0 auto;
   -webkit-font-smoothing: antialiased;
   width: 100%;
@@ -23,6 +23,7 @@ td, th {
 
 .death-change, .case-change {
     text-align: right;
+    font-size: 120%;
 }
 
 .date, .death-graph, .case-graph {
@@ -30,9 +31,14 @@ td, th {
 }
 
 table {
-    font-size: 1.3vw;
+    font-size: 1.4vw;
 }
 
 .current {
     font-weight: bold;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0.5ex;
 }

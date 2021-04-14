@@ -23,15 +23,10 @@ td, th {
 
 .death-change, .case-change {
     text-align: right;
-    font-size: 120%;
 }
 
 .date, .death-graph, .case-graph {
     text-align: left;
-}
-
-table {
-    font-size: 1.4vw;
 }
 
 .current {
@@ -41,4 +36,13 @@ table {
 ul {
     list-style-type: none;
     padding: 0.5ex;
+}
+
+@media screen and (max-width: 1024px) {
+    table {
+        font-size: 1.4vw;
+    }
+    td.death-change, td.case-change, td.date {
+        font-size: 150%;
+    }
 }

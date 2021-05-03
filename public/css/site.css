@@ -38,6 +38,14 @@ ul {
     padding: 0.5ex;
 }
 
+ul li {
+    padding: 0.25ex;
+}
+
+#github {
+    font-size: 75%;
+}
+
 @media screen and (max-width: 1024px) {
     table {
         font-size: 1.4vw;

@@ -93,7 +93,6 @@
       [:li {:key (:file-name place)}
        [:a
         {:name (:file-name place)
-         :href (str "#" (:file-name place))
          :class (if (= (:title @place-data) (:place place))
                   "current"
                   "plain")

@@ -92,8 +92,7 @@
     (for [place (:places @index-data)]
       [:li {:key (:file-name place)}
        [:a
-        {:name (:file-name place)
-         :class (if (= (:title @place-data) (:place place))
+        {:class (if (= (:title @place-data) (:place place))
                   "current"
                   "plain")
          :on-click (click-handler (:file-name place))}

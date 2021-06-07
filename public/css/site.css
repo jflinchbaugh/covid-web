@@ -3,6 +3,7 @@ body {
   font-size: 16pt;
   margin: 0 auto;
   -webkit-font-smoothing: antialiased;
+  -webkit-user-select: none;
   width: 100%;
 }
 

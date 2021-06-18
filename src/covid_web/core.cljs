@@ -46,10 +46,8 @@
 (defn graph-length [space max-val val]
   (int (if (zero? val) 0 (* space (/ val max-val)))))
 
-(defn graph-bar [ch space max-val val]
-  (let [v (min val max-val)
-        tail (if (<= val max-val) "" ">")]
-    [:div.bar (s/join (concat (repeat (graph-length space max-val v) ch) [tail]))]))
+(defn graph-bar [max-val val]
+  [:meter {:min 0 :max max-val :high max-val :value val}])
 
 (defn place-table []
   [:table
@@ -74,15 +72,11 @@
          [:td.death-change (:death-change day)]
          [:td.death-graph
           (graph-bar
-            "!"
-            50
             (max-deaths @place-data)
             (:death-change-history day))]
          [:td.case-change (:case-change day)]
          [:td.case-graph
           (graph-bar
-            "!"
-            75
             (max-cases @place-data)
             (:case-change-history day))]]))]])
 

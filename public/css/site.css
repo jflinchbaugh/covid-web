@@ -48,6 +48,14 @@ ul li {
     padding: 0.25ex;
 }
 
+.death-graph meter {
+    width: 15vw;
+}
+
+.case-graph meter {
+    width: 35vw;
+}
+
 #github {
     font-size: 75%;
 }

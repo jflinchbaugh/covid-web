@@ -5,8 +5,10 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
   :dependencies [[org.clojure/clojure "1.10.3"]
-                 [org.clojure/clojurescript "1.10.866"]
-                 [reagent "1.0.0"]
+                 [org.clojure/clojurescript "1.10.879"]
+                 [reagent "1.1.0"]
+                 [cljsjs/react "17.0.2-0"]
+                 [cljsjs/react-dom "17.0.2-0"]
                  [cljs-http "0.1.46"]]
 
   :plugins [[lein-cljsbuild "1.1.7"]

@@ -34,6 +34,9 @@
 (defn max-cases [place]
     (get-in place [:visualization :cases :upper-outlier-threshold]))
 
+(defn any-neg? [day]
+  (some neg? ((juxt :death-change :case-change) day)))
+
 ;; -------------------------
 ;; Components
 
@@ -67,10 +70,8 @@
      [:td.case-graph ""]]
     (doall
       (for [day (:days @place-data)]
-        [(if
-             (some neg? ((juxt :death-change :case-change) day))
-           :tr.negative
-           :tr) {:key (:date day)}
+        [(if (any-neg? day) :tr.negative :tr)
+         {:key (:date day)}
          [:td.date (:date day)]
          [:td.death-change (:death-change day)]
          [:td.death-graph

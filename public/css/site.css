@@ -56,6 +56,10 @@ ul li {
     width: 35vw;
 }
 
+.negative {
+    color: red;
+}
+
 #github {
     font-size: 75%;
 }

@@ -67,7 +67,10 @@
      [:td.case-graph ""]]
     (doall
       (for [day (:days @place-data)]
-        [:tr {:key (:date day)}
+        [(if
+             (some neg? ((juxt :death-change :case-change) day))
+           :tr.negative
+           :tr) {:key (:date day)}
          [:td.date (:date day)]
          [:td.death-change (:death-change day)]
          [:td.death-graph

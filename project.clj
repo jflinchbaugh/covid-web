@@ -5,13 +5,13 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
   :dependencies [[org.clojure/clojure "1.10.3"]
-                 [org.clojure/clojurescript "1.10.879"]
+                 [org.clojure/clojurescript "1.11.4"]
                  [reagent "1.1.1"]
                  [cljsjs/react "18.0.0-rc.0-0"]
                  [cljsjs/react-dom "18.0.0-rc.0-0"]
                  [cljs-http "0.1.46"]]
 
-  :plugins [[lein-cljsbuild "1.1.7"]
+  :plugins [[lein-cljsbuild "1.1.8"]
             [lein-figwheel "0.5.20"]]
 
   :clean-targets ^{:protect false}

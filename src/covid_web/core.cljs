@@ -4,7 +4,8 @@
    [reagent.dom :as d]
    [clojure.string :as s]
    [cljs-http.client :as http]
-   [cljs.core.async :as async]))
+   [cljs.core.async :as async]
+   [goog.string :as gstr]))
 
 ;; -------------------------
 ;; State
@@ -53,7 +54,7 @@
   [:meter {:min 0 :max max-val :high max-val :value val}])
 
 (defn place-table []
-  [:table
+  [:table.place
    [:thead
     [:tr
      [:th.date "Date"]
@@ -88,15 +89,14 @@
   [:ul
    (doall
     (for [place (:places @index-data)]
-      [:li {:key (:file-name place)}
-       [:a
-        {:class (if (= (:title @place-data) (:place place))
-                  "current"
-                  "plain")
-         :on-click (click-handler (:file-name place))}
-        (:place place)]
-       (when (= (:title @place-data) (:place place))
-         [place-table])]))])
+      (let [selected? (= (:title @place-data) (:place place))]
+        [:li {:key (:file-name place) :class (if selected? "current" "plain")}
+         [:a
+          {:on-click (click-handler (:file-name place))}
+          (gstr/unescapeEntities (if selected? "&#9207;&nbsp;" "&#9205;&nbsp;"))
+          (:place place)]
+         (when selected?
+           [place-table])])))])
 
 ;; -------------------------
 ;; Views

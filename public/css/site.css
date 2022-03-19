@@ -34,14 +34,17 @@ td, th {
     text-align: left;
 }
 
-.current {
-    font-weight: bold;
+.current a {
 }
 
 ul {
     list-style-type: none;
     padding: 0.5ex;
     margin: 0;
+}
+
+ul li.current {
+    background: lightgray;
 }
 
 ul li {

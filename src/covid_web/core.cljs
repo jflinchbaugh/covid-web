@@ -93,7 +93,7 @@
         [:li {:key (:file-name place) :class (if selected? "current" "plain")}
          [:a
           {:on-click (click-handler (:file-name place))}
-          (gstr/unescapeEntities (if selected? "&#9207;&nbsp;" "&#9205;&nbsp;"))
+          (gstr/unescapeEntities (if selected? "&#x25BE;&nbsp;" "&#x25B8;&nbsp;"))
           (:place place)]
          (when selected?
            [place-table])])))])

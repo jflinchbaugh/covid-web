@@ -2,7 +2,7 @@ pipeline {
     agent {
       docker {
         image 'clojure:lein-buster'
-        args bash
+        args "bash"
       }
     }
     stages {

@@ -1,5 +1,10 @@
 pipeline {
-    agent { docker { image 'clojure:lein-buster' } }
+    agent {
+      docker {
+        image 'clojure:lein-buster'
+        args bash
+      }
+    }
     stages {
         stage('build') {
             steps {

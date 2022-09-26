@@ -103,7 +103,8 @@
 
 (defn places-page []
   [:div [:h1 (:title @index-data)]
-   [places-list]])
+   [places-list]
+   [:div.prepared (:prepared @index-data)]])
 
 (defn home-page []
   (places-page))

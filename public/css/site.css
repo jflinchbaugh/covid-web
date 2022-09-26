@@ -76,3 +76,8 @@ ul li {
         font-size: 150%;
     }
 }
+
+.prepared {
+    font-size: 75%;
+    font-style: italic;
+}

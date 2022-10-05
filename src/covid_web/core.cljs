@@ -53,7 +53,7 @@
 (defn graph-bar [max-val val]
   [:meter {:min 0 :max max-val :high max-val :value val}])
 
-(defn place-table []
+(defn place-table [place-data]
   [:table.place
    [:thead
     [:tr
@@ -65,24 +65,24 @@
    [:tbody
     [:tr
      [:td.date "Total"]
-     [:td.death-change (:total-deaths @place-data)]
+     [:td.death-change (:total-deaths place-data)]
      [:td.death-graph ""]
-     [:td.case-change (:total-cases @place-data)]
+     [:td.case-change (:total-cases place-data)]
      [:td.case-graph ""]]
     (doall
-      (for [day (:days @place-data)]
+      (for [day (:days place-data)]
         [(if (any-neg? day) :tr.negative :tr)
          {:key (:date day)}
          [:td.date (:date day)]
          [:td.death-change (:death-change day)]
          [:td.death-graph
           (graph-bar
-            (max-deaths @place-data)
+            (max-deaths place-data)
             (:death-change-history day))]
          [:td.case-change (:case-change day)]
          [:td.case-graph
           (graph-bar
-            (max-cases @place-data)
+            (max-cases place-data)
             (:case-change-history day))]]))]])
 
 (defn places-list []
@@ -96,15 +96,16 @@
           (gstr/unescapeEntities (if selected? "&#x25BE;&nbsp;" "&#x25B8;&nbsp;"))
           (:place place)]
          (when selected?
-           [place-table])])))])
+           [:div
+            [:div.prepared (:prepared @place-data)]
+            [place-table @place-data]])])))])
 
 ;; -------------------------
 ;; Views
 
 (defn places-page []
   [:div [:h1 (:title @index-data)]
-   [places-list]
-   [:div.prepared (:prepared @index-data)]])
+   [places-list]])
 
 (defn home-page []
   (places-page))

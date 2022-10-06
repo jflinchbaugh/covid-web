@@ -68,16 +68,19 @@ ul li {
     font-size: 75%;
 }
 
+.prepared {
+    font-style: italic;
+    font-size: 75%;
+}
+
 @media screen and (max-width: 1024px) {
     table {
+        font-size: 1.4vw;
+    }
+    .prepared {
         font-size: 1.4vw;
     }
     td.death-change, td.case-change, td.date {
         font-size: 150%;
     }
-}
-
-.prepared {
-    font-size: 75%;
-    font-style: italic;
 }
